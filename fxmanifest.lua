@@ -28,3 +28,7 @@ dependencies {
     'ox_lib',
     'oxmysql'
 }
+
+escrow_ignore {
+    'shared/*'
+}
