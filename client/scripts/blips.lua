@@ -31,7 +31,9 @@ kxm.add_blip_radius = function(data)
     if data.displace then
         for k, v in pairs(coords) do
             local negative = (math.random(1, 2) == 2) and -1 or 1
-            coords[k] = coords[k] + (math.random(15, 30) * negative)
+            local min = math.floor(data.radius * 0.15)
+            local max = math.floor(data.radius * 0.5)
+            coords[k] = coords[k] + (math.random(min, max) * negative)
         end
     end
 
