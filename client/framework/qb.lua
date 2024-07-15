@@ -31,6 +31,9 @@ end)
 
 RegisterNetEvent('QBCore:Player:SetPlayerData', function(PlayerData)
     TriggerEvent('kxm_utils:client:playerUpdated', PlayerData)
+
+    StatSetInt(`BANK_BALANCE`, PlayerData.money.bank, true)
+    StatSetInt(`MP0_WALLET_BALANCE`, PlayerData.money.cash, true)
 end)
 
 ---@param type? string: job, jobname, jobgrade, jobboss, duty, money, bank, name, identifier, citizenid, inventory. Default: returns PlayerData table
