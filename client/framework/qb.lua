@@ -190,7 +190,7 @@ exports('playerLoaded', playerLoaded)
 ---@param slot? number
 ---@param reason? string
 local function addItem(item, amount, meta, slot, reason)
-    TriggerServerEvent('kxm_utils:server:addItem', GetPlayerServerId(PlayerId()), item, amount, meta, slot, reason)
+    TriggerServerEvent('kxm_utils:server:addItem', cache.serverId, item, amount, meta, slot, reason)
 end
 
 kxm.core.addItem = addItem
@@ -202,7 +202,7 @@ exports('addItem', addItem)
 ---@param slot? number
 ---@param reason? any
 local function removeItem(item, amount, meta, slot, reason)
-    TriggerServerEvent('kxm_utils:server:removeItem', GetPlayerServerId(PlayerId()), item, amount, meta, slot, reason)
+    TriggerServerEvent('kxm_utils:server:removeItem', cache.serverId, item, amount, meta, slot, reason)
 end
 
 kxm.core.removeItem = removeItem
