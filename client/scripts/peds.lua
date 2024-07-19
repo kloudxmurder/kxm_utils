@@ -14,13 +14,17 @@ local peds = {}
 ---@return entityID
 kxm.create_ped = function(data)
     local model = joaat(data.model)
-    lib.requestModel(model)
+    local resource = GetInvokingResource()
+
+    if not HasModelLoaded(model) then
+        lib.requestModel(model)
+    end
 
     local ped = CreatePed(3, model, data.coords.x, data.coords.y, data.coords.z - 1, data.coords.w, data.networked or false, true)
 
     peds[#peds+1] = {
         ped = ped,
-        resource = GetInvokingResource()
+        resource = resource
     }
 
     SetModelAsNoLongerNeeded(model)
