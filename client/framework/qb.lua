@@ -11,6 +11,7 @@ CreateThread(function()
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    exports.spawnmanager:setAutoSpawn(false)
     TriggerEvent('kxm_utils:client:playerLoaded')
     TriggerServerEvent('kxm_utils:server:playerLoaded')
     if QB.Functions.GetPlayerData().job.onduty then
