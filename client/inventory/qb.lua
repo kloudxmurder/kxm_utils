@@ -14,7 +14,7 @@ if not invList[GetConvar('kxm:inventory', 'auto')] then return end
 
 if GetResourceState(invList[invConvar]) ~= 'started' then
     if GetConvar('kxm:inventory', 'auto') ~= 'auto' then
-        Wait(5000)
+        Wait(6000)
         print('^1kxm:inventory is set to ' .. invConvar .. ' but ' .. invList[invConvar] .. ' is not started.^7')
     end
 

@@ -43,6 +43,8 @@ SetInterval(function()
 end, 30 * 1000)
 
 CreateThread(function()
+    if not IsDuplicityVersion() then return end
+
     local invList = {
         qb = 'qb-inventory',
         ps = 'ps-inventory',
@@ -69,11 +71,12 @@ CreateThread(function()
             supported = false
         },
     }
-    Wait(5000)
+    Wait(7000)
     if GetConvar('kxm:inventory', 'auto') == 'auto' then
         for inv, name in pairs(invList) do
             if GetResourceState(name) == 'started' then
                 print('^3kxm:inventory found ' .. name .. ' and set to ' .. inv .. '.^7')
+                SetConvar('kxm:inventory', inv)
             end
         end
     end
@@ -86,6 +89,7 @@ CreateThread(function()
                 else
                     print('^3kxm:framework found ' .. data.name .. ' and set to ' .. framework .. '.^7')
                 end
+                SetConvar('kxm:framework', framework)
             end
         end
     end

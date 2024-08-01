@@ -44,15 +44,20 @@ end)
 CreateThread(function()
     Wait(4000)
     local ascii = {
-        '  _  __      __  __    _____ _             _ _',
-        ' | |/ /     |  \\/  |  / ____| |           | (_)',
-        ' | \' / __  _| \\  / | | (___ | |_ _   _  __| |_  ___  ___',
-        ' |  <  \\ \\/ / |\\/| |  \\___ \\| __| | | |/ _` | |/ _ \\/ __|',
-        ' | . \\  >  <| |  | |  ____) | |_| |_| | (_| | | (_) \\__ \\',
-        ' |_|\\_\\/_/\\_\\_|  |_| |_____/ \\__|\\__,_|\\__,_|_|\\___/|___/',
+        '^1K  K     M   M      SSS   t          d            ^7',
+        '^1K K      MM MM     S      t          d ii         ^7',
+        '^1KK   x x M M M      SSS  ttt u  u  ddd    ooo  ss ^7',
+        '^1K K   x  M   M         S  t  u  u d  d ii o o  s  ^7',
+        '^1K  K x x M   M     SSSS   tt  uuu  ddd ii ooo ss  ^7',
+        '^2Discord: ^7https://discord.gg/76K49H3t9D',
+        '^2Tebex: ^7https://kxm.tebex.io'
     }
 
     for k, v in ipairs(ascii) do
         print(v)
     end
+
+    print('^2 --- VERSION CHECK ---^7')
+    Wait(1800)
+    print('^2 --- SET CONVARS ---^7')
 end)
