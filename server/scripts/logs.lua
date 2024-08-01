@@ -26,4 +26,4 @@ kxm.logs = function(data)
     })
 end
 
-RegisterNetEvent('kloud:server:logs', kxm.logs)
+RegisterNetEvent('kxm_utils:server:logs', kxm.logs)

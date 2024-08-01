@@ -9,10 +9,11 @@ local blips_data = {}
 ---@param data blipData
 kxm.add_blip = function(data)
     local blipID = AddBlipForCoord(data.coords.x, data.coords.y, data.coords.z)
+    local color = GetConvar('kxm:bnw', 'false') == 'true' and 0 or data.color
     SetBlipSprite(blipID, data.sprite)
     SetBlipDisplay(blipID, 4)
     SetBlipScale(blipID, data.scale)
-    SetBlipColour(blipID, data.color)
+    SetBlipColour(blipID, color)
     SetBlipAsShortRange(blipID, true)
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString(data.label)

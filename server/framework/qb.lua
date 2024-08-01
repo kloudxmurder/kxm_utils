@@ -1,14 +1,11 @@
 if not lib.checkDependency('qb-core', '1.2.6') then error() end
 
-QB = exports['qb-core']:GetCoreObject()
-
-local item_labels = {}
-
 CreateThread(function()
-    for item, data in pairs(exports.ox_inventory:Items()) do
-        item_labels[item] = data.label
-    end
+    while not kxm.inv do Wait(100) end
+    kxm.inv = kxm.inv
 end)
+
+QB = exports['qb-core']:GetCoreObject()
 
 local function getPlayer(source)
     local player = QB.Functions.GetPlayer(source)
@@ -78,7 +75,7 @@ local function getPlayerData(source, type)
     elseif type == 'source' then
         return Player.PlayerData.source
     elseif type == 'inventory' then
-        return Player.PlayerData.items or exports.ox_inventory:GetInventoryItems(Player.PlayerData.source)
+        return Player.PlayerData.items or kxm.inv.getInventoryItems(source)
     elseif type == nil then
         return Player.PlayerData
     else
@@ -191,7 +188,7 @@ local function addItem(source, inv, item, amount, meta, slot, reason)
         channel = 'addItem'
     })
 
-    return exports.ox_inventory:AddItem(inv, item, amount, meta, slot)
+    return kxm.inv.addItem(source, inv, item, amount, meta, slot, reason)
 end
 
 RegisterNetEvent('kxm_utils:server:addItem', function(inv, item, amount, meta, slot, reason)
@@ -213,7 +210,7 @@ local function removeItem(source, inv, item, amount, meta, slot, reason)
         channel = 'removeItem'
     })
 
-    return exports.ox_inventory:RemoveItem(inv, item, amount, meta, slot)
+    return kxm.inv.removeItem(source, inv, item, amount, meta, slot, reason)
 end
 
 RegisterNetEvent('kxm_utils:server:removeItem', function(inv, item, amount, meta, slot, reason)
@@ -245,10 +242,11 @@ end
 kxm.core.notify = notify
 exports('notify', notify)
 
+---@param player number|string: Inventory name / Player ID
 ---@param item string: Item Name
----@return integer
+---@return number
 local function getItemCount(player, item)
-    local plyInv = getPlayerData(player, 'inventory')
+    local plyInv = kxm.inv.getInventoryItems(player)
     local invItems = {}
     local itemCount = 0
     for k, v in pairs(plyInv) do
@@ -273,7 +271,6 @@ end
 
 kxm.core.hasItem = hasItem
 exports('hasItem', hasItem)
-
 
 local function registerUsableItem(name, func)
     QB.Functions.CreateUseableItem(name, func)
@@ -318,19 +315,6 @@ end)
 
 kxm.core.getPlayerMeta = getPlayerMeta
 exports('getPlayerMeta', getPlayerMeta)
-
-local function getItemLabels(source)
-    return item_labels
-end
-
-local function getItemLabel(item)
-    return item_labels[item] or 'Unknown'
-end
-
-kxm.core.getItemLabel = getItemLabel
-exports('getItemLabel', getItemLabel)
-
-lib.callback.register('kxm_utils:server:getItemLabels', getItemLabels)
 
 local function getDutyCount(_, job)
     local dutyCount = 0
@@ -383,3 +367,4 @@ kxm.core.toggleDuty = toggleDuty
 exports('toggleDuty', toggleDuty)
 
 RegisterServerEvent('kxm_utils:server:toggleDuty', toggleDuty)
+

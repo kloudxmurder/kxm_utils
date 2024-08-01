@@ -15,13 +15,20 @@ shared_scripts {
 
 client_scripts {
     'client/init.lua',
-    'client/**/*'
+    'client/framework/*',
+    'client/inventory/*',
+    'client/scripts/*',
+    'client/minigame/*',
+    'client/target/*',
+    'client/interface/*'
 }
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
     'server/init.lua',
-    'server/**/*'
+    'server/framework/*',
+    'server/inventory/*',
+    'server/scripts/*',
 }
 
 dependencies {

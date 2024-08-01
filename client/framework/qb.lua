@@ -102,7 +102,7 @@ exports('notify', notify)
 ---@param item string: Item Name
 ---@return integer
 local function getItemCount(item)
-    local plyInv = getPlayerData('inventory')
+    local plyInv = kxm.inv.getInventoryItems()
     local invItems = {}
     local itemCount = 0
     for k, v in pairs(plyInv) do

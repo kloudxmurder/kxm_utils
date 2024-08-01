@@ -1,3 +1,3 @@
 kxm.logs = function(data)
-    TriggerServerEvent('kloud:server:logs', data)
+    TriggerServerEvent('kxm_utils:server:logs', data)
 end
