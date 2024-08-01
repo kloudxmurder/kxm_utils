@@ -37,5 +37,9 @@ dependencies {
 }
 
 escrow_ignore {
-    'shared/*'
+    'shared/*',
+    'client/framework/*',
+    'client/inventory/*',
+    'server/framework/*',
+    'server/inventory/*',
 }
