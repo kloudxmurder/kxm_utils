@@ -3,22 +3,19 @@ kxm.core = kxm.core or {}
 local function checkVersion(name)
     PerformHttpRequest('https://raw.githubusercontent.com/kloudxmurder/'.. name .. '/main/version',
         function(err, content, headers)
-
             if not content then
-                print('^8['.. name .. '] unable to check latest version.^7')
                 return
             end
 
-            local currentVersion = LoadResourceFile(name, "version")
-            print('Latest: ' .. content .. ' Current: ' .. currentVersion)
+            local version = string.gsub(content, '%s+', '')
 
-            if content and content == currentVersion then
-                print('^6You are running the latest version.^7')
-            elseif content then
-                print('^3Version Check^7: ^2Current^7: ' .. currentVersion .. ' ^2Latest^7: ' .. content)
+            local currentVersion = LoadResourceFile(name, "version")
+
+            if version and version == currentVersion then
+                print('[^5' .. name .. '^7] ^6You are running the latest version.^7')
+            elseif version then
+                print('[^5' .. name .. '^7] ^3Current^7: ' .. currentVersion .. '^3Latest^7: ' .. version)
                 print('^1You are currently running an outdated version of ' .. name .. '.^7')
-            else
-                print("Unable to extract version information from fxmanifest.lua.")
             end
         end
     )
@@ -26,7 +23,7 @@ end
 
 RegisterServerEvent('onServerResourceStart', function(name)
     if string.find(name, 'kxm_') then
-        -- Wait(5000)
+        Wait(5000)
         checkVersion(name)
     end
 end)
