@@ -1,4 +1,13 @@
-if GetResourceState('ox_inventory') ~= 'started' then return end
+if GetConvar('kxm:inventory', 'auto') ~= 'auto' and GetConvar('kxm:inventory', 'auto') ~= 'ox' then return end
+
+if GetResourceState('ox_inventory') ~= 'started' then
+    if GetConvar('kxm:inventory', 'auto') ~= 'auto' then
+        Wait(5000)
+        print('^1kxm:inventory is set to ox but ox_inventory is not started.^7')
+    end
+
+    return
+end
 
 kxm = kxm
 kxm.inv = {}

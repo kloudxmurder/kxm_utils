@@ -1,4 +1,14 @@
-if GetResourceState('qs-inventory') ~= 'started' then return end
+if GetConvar('kxm:inventory', 'auto') ~= 'auto' and GetConvar('kxm:inventory', 'auto') ~= 'qs' then return end
+
+if GetResourceState('qs-inventory') ~= 'started' then
+    if GetConvar('kxm:inventory', 'auto') ~= 'auto' then
+        Wait(5000)
+        print('^1kxm:inventory is set to qs but qs-inventory is not started.^7')
+    end
+
+    return
+end
+
 local qs = exports['qs-inventory']
 local item_labels = {}
 

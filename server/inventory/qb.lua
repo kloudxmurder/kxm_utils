@@ -1,15 +1,27 @@
 local invStarted = false
 local qbInv = nil
 local invList = {
-    'qb-inventory', 'lj-inventory', 'ps-inventory'
+    qb = 'qb-inventory',
+    lj = 'lj-inventory',
+    ps = 'ps-inventory'
 }
 
-for _, inv in pairs(invList) do
-    if GetResourceState(inv) == 'started' then invStarted = true qbInv = inv end
+local invConvar = GetConvar('kxm:inventory', 'auto')
+local isQB = false
+
+if GetConvar('kxm:inventory', 'auto') ~= 'auto' then return end
+if not invList[GetConvar('kxm:inventory', 'auto')] then return end
+
+if GetResourceState(invList[invConvar]) ~= 'started' then
+    if GetConvar('kxm:inventory', 'auto') ~= 'auto' then
+        Wait(5000)
+        print('^1kxm:inventory is set to ' .. invConvar .. ' but ' .. invList[invConvar] .. ' is not started.^7')
+    end
+
+    return
 end
 
-if not invStarted then return end
-qbInv = exports[qbInv]
+qbInv = exports[invList[invConvar]]
 QB = exports['qb-core']:GetCoreObject()
 
 local item_labels = {}

@@ -1,4 +1,13 @@
-if not lib.checkDependency('qb-core', '1.2.6') then error() end
+if GetConvar('kxm:framework', 'auto') ~= 'auto' and GetConvar('kxm:framework', 'auto') ~= 'qb' then return end
+
+if GetResourceState('qb-core') ~= 'started' then
+    if GetConvar('kxm:framework', 'auto') ~= 'auto' then
+        Wait(5000)
+        print('^1kxm:framework is set to qb but qb-core is not started.^7')
+    end
+
+    return
+end
 
 QB = exports['qb-core']:GetCoreObject()
 
