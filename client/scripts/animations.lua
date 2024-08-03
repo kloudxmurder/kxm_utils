@@ -9,37 +9,49 @@
 ---@field entity any: entity ID
 ---@field dict string: animation dictionary
 ---@field name string: animation name
----@field duration number: duration in (ms) or -1
----@field upperbody boolean
----@field prop propData
+---@field scenario? string: scenario name
+---@field scenarioIntro? boolean: play scenario intro?
+---@field duration? number: duration in (ms) or -1
+---@field upperbody? boolean
+---@field prop? propData
 
 local prop
 
 ---@param data animData
 kxm.play_anim = function(data)
-    local flag = data.upperbody and 49 or 1
-    local duration = data.duration or -1
-    if not HasAnimDictLoaded(data.dict) then
-        lib.requestAnimDict(data.dict)
+    local entity, dict, name, scenario, scenarioIntro, duration, upperbody, prop in data
+    if not entity then
+        entity = cache.ped
     end
 
-    if NetworkHasControlOfEntity(data.entity) then
-        TaskPlayAnim(data.entity, data.dict, data.name, 8.0, 8.0, duration, flag, 0.0, false, false, false)
+    if scenario then
+        TaskStartScenarioInPlace(entity, scenario, -1, scenarioIntro)
+        return
+    end
+
+    local flag = upperbody and 49 or 1
+    local duration = duration or -1
+    if not HasAnimDictLoaded(dict) then
+        lib.requestAnimDict(dict)
+    end
+
+    if NetworkHasControlOfEntity(entity) then
+        TaskPlayAnim(entity, dict, name, 8.0, 8.0, duration, flag, 0.0, false, false, false)
     else
-        kxm.execute_from_owner("TaskPlayAnim", data.entity, data.dict, data.name, 8.0, 8.0, duration, flag, 0.0, false, false, false)
+        kxm.execute_from_owner("TaskPlayAnim", entity, dict, name, 8.0, 8.0, duration, flag, 0.0, false, false, false)
     end
 
-    if data.prop then
-        if IsModelInCdimage(data.prop.model) then
-            lib.requestModel(data.prop.model)
-            prop = CreateObject(data.prop.model, GetEntityCoords(data.entity), true, true, true)
+    if prop then
+        if IsModelInCdimage(prop.model) then
+            lib.requestModel(prop.model)
+            prop = CreateObject(prop.model, GetEntityCoords(entity), true, true, true)
             repeat Wait(100) until DoesEntityExist(prop)
-            AttachEntityToEntity(prop, data.entity, GetPedBoneIndex(data.entity, data.prop.bone or 60309), data.prop.coords.x or 0.0, data.prop.coords.y or 0.0, data.prop.coords.z or 0.0, data.prop.rotation.x or 0.0, data.prop.rotation.y or 0.0, data.prop.rotation.z or 0.0, 1, 1, 0, 1, 0, 1)
-            SetModelAsNoLongerNeeded(data.prop.model)
+            AttachEntityToEntity(prop, entity, GetPedBoneIndex(entity, prop.bone or 60309), prop.coords.x or 0.0, prop.coords.y or 0.0, prop.coords.z or 0.0, prop.rotation.x or 0.0, prop.rotation.y or 0.0, prop.rotation.z or 0.0, 1, 1, 0, 1, 0, 1)
+            SetModelAsNoLongerNeeded(prop.model)
         end
     end
 
-    RemoveAnimDict(data.dict)
+    RemoveAnimDict(dict)
 end
 
 kxm.stop_anim = function(entity)

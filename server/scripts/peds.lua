@@ -16,10 +16,11 @@ end
 ---@class animData
 ---@field dict string: animation dictionary
 ---@field name string: animation name
----@field duration number: duration in (ms) or -1
----@field upperbody boolean
----@field prop propData
----@field id number
+---@field scenario? string: scenario name
+---@field scenarioIntro? boolean: play scenario intro?
+---@field duration? number: duration in (ms) or -1
+---@field upperbody? boolean
+---@field prop? propData
 
 ---@class propData
 ---@field model string

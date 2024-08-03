@@ -33,12 +33,14 @@ kxm.create_ped = function(data)
 end
 
 ---@class animData
+---@field entity any: entity ID
 ---@field dict string: animation dictionary
 ---@field name string: animation name
----@field duration number: duration in (ms) or -1
----@field upperbody boolean
----@field prop propData
----@field id number
+---@field scenario? string: scenario name
+---@field scenarioIntro? boolean: play scenario intro?
+---@field duration? number: duration in (ms) or -1
+---@field upperbody? boolean
+---@field prop? propData
 
 ---@class propData
 ---@field model string
@@ -48,7 +50,7 @@ end
 
 ---@param data animData
 kxm.ped_anim = function(data)
-    local dict, name, duration, upperbody, prop, id in data
+    local dict, name, scenario, scenarioIntro, duration, upperbody, prop, id in data
     local ped = nil
     for k, v in pairs(kxm_peds) do
         if v.id == data.id then
@@ -57,15 +59,9 @@ kxm.ped_anim = function(data)
     end
 
     if not ped then return end
+    data.entity = ped
 
-    kxm.play_anim({
-        entity = ped,
-        dict = dict,
-        name = name,
-        duration = duration,
-        upperbody = upperbody,
-        prop = prop
-    })
+    kxm.play_anim(data)
 end
 
 kxm.ped_stop_anim = function(id)
