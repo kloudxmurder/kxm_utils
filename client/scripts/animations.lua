@@ -1,13 +1,20 @@
+
+---@class propData
+---@field model string
+---@field bone? number
+---@field coords vector3
+---@field rotation vector3
+
 ---@class animData
 ---@field entity any: entity ID
 ---@field dict string: animation dictionary
 ---@field name string: animation name
 ---@field duration number: duration in (ms) or -1
 ---@field upperbody boolean
+---@field prop propData
 
 local prop
 
----
 ---@param data animData
 kxm.play_anim = function(data)
     local flag = data.upperbody and 49 or 1
