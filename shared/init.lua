@@ -34,6 +34,11 @@ kxm.comma_value = function(amount)
     return formatted
 end
 
+kxm.time_percentage = function(millisecondsPassed, totalMilliseconds)
+    local percentage = (millisecondsPassed / totalMilliseconds) * 100
+    return string.format("%.2f%%", percentage)
+end
+
 exports("GetCore", function()
     return kxm
 end)

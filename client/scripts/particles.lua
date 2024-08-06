@@ -6,24 +6,25 @@
 ---@field looped boolean
 ---@field duration? number: in (ms)
 
-kxm.load_particle = function (dict)
-    if not HasNamedPtfxAssetLoaded(dict) then
-        RequestNamedPtfxAsset(dict)
+kxm.load_particle = function (asset)
+    if not HasNamedPtfxAssetLoaded(asset) then
+        RequestNamedPtfxAsset(asset)
     end
 
-    repeat Wait(0) until HasNamedPtfxAssetLoaded(dict)
+    repeat Wait(0) until HasNamedPtfxAssetLoaded(asset)
 
-    SetPtfxAssetNextCall(dict)
+    SetPtfxAssetNextCall(asset)
 end
 
 ---@param data ptfxData
 kxm.ptfx = function(data)
     kxm.load_particle(data.asset)
+
     if data.coords then
         if data.looped then
             ptfx = StartParticleFxLoopedAtCoord(data.name, data.coords, 0.0, 0.0, 0.0, 1.0, false, false, false, false)
         else
-            ptfx = StartParticleFxNonLoopedAtCoord(data.name, data.coords, 0.0, 0.0, 0.0, 1.0, false, false, false, false)
+            ptfx = StartParticleFxNonLoopedAtCoord(data.name, data.coords.x, data.coords.y, data.coords.z, 0.0, 0.0, 0.0, 1.0, false, false, false)
         end
     elseif data.entity then
         if data.looped then
@@ -34,7 +35,11 @@ kxm.ptfx = function(data)
     end
 
     if data.duration then
-        Wait(data.duration)
+        SetTimeout(data.duration, function()
+            StopParticleFxLooped(ptfx, false)
+        end)
+
+        return ptfx
     end
 
     if data.looped then
