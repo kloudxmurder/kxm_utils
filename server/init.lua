@@ -27,7 +27,7 @@ local function checkVersion(name)
             if version and version == currentVersion then
                 print('[^5' .. name .. '^7] ^6You are running the latest version. v' .. currentVersion .. '^7')
             elseif version then
-                print('[^5' .. name .. '^7] ^3Current^7: ' .. currentVersion .. '^3Latest^7: ' .. version)
+                print('[^5' .. name .. '^7] ^3Current^7: v' .. currentVersion .. '^3 Latest^7: v' .. version)
                 print('^1You are currently running an outdated version of ' .. name .. '.^7')
             end
         end
