@@ -31,6 +31,11 @@ kxm.play_anim = function(data)
 
     local flag = upperbody and 49 or 1
     local duration = duration or -1
+
+    if data.flag then
+        flag = data.flag
+    end
+
     if not HasAnimDictLoaded(dict) then
         lib.requestAnimDict(dict)
     end
