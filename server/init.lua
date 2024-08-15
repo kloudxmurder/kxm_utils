@@ -8,20 +8,10 @@ local function checkVersion(name)
             end
 
             local version = string.gsub(content, '%s+', '')
-            local currentVersion = LoadResourceFile(name, "version")
+            local currentVersion = GetResourceMetadata(name, 'version')
 
             if not currentVersion then
-                currentVersion = GetResourceMetadata(name, 'version')
-                local resourcePath = GetResourcePath(name)
-                local newFile = io.open(resourcePath..'/version', 'w')
-                newFile:write(currentVersion)
-                newFile:close()
-
-                if newFile then
-                    print('[^5'.. name .. '^7] created version file. version: ' .. currentVersion)
-                else
-                    print('[^5'.. name .. '^7] ^1failed to create version file.^7')
-                end
+                return
             end
 
             if version and version == currentVersion then
