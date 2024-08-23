@@ -6,6 +6,10 @@ kxm.round = function(value, decimal)
     return math.floor((value * power) + 0.5) / (power)
 end
 
+kxm.trim = function(text)
+    return string.gsub(text, '^%s*(.-)%s*$', '%1')
+end
+
 local StringCharset = {}
 local NumberCharset = {}
 for i = 48, 57 do NumberCharset[#NumberCharset + 1] = string.char(i) end

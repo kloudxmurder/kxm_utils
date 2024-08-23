@@ -97,7 +97,7 @@ end
 
 kxm.get_plate = function(vehicle)
     local plate = GetVehicleNumberPlateText(vehicle)
-    plate = string.gsub(plate, '^%s*(.-)%s*$', '%1')
+    plate = kxm.trim(plate)
 
     return plate
 end
