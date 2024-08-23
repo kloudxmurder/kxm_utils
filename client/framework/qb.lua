@@ -12,11 +12,13 @@ end
 QB = exports['qb-core']:GetCoreObject()
 
 local logged_in = false
+local player_ace = {}
 local item_labels = {}
 
 CreateThread(function()
     -- fill item_labels table from server
     item_labels = lib.callback.await('kxm_utils:server:getItemLabels', nil)
+    player_ace = lib.callback.await('kxm_utils:cb:getAce', nil)
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
@@ -315,3 +317,10 @@ end
 
 kxm.core.getItemLabel = getItemLabel
 exports('getItemLabel', getItemLabel)
+
+local function getAce()
+    return player_ace
+end
+
+kxm.core.getAce = getAce
+exports('getAce', getAce)

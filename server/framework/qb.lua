@@ -376,3 +376,16 @@ kxm.core.toggleDuty = toggleDuty
 exports('toggleDuty', toggleDuty)
 
 RegisterServerEvent('kxm_utils:server:toggleDuty', toggleDuty)
+
+local function getAce(source)
+    local src = source
+    local data = {
+        admin = IsPlayerAceAllowed(src, 'admin'),
+        mod = IsPlayerAceAllowed(src, 'mod'),
+        support = IsPlayerAceAllowed(src, 'support'),
+    }
+
+    return data
+end
+
+lib.callback.register('kxm_utils:cb:getAce', getAce)

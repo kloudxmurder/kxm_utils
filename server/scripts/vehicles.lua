@@ -1,6 +1,6 @@
 local ServerVehicle = CreateVehicleServerSetter
 
-lib.callback.register('kxm_utils:callback:createVehicle', function(source, data)
+kxm.create_vehicle = function(source, data)
     local routing = GetPlayerRoutingBucket(source)
     local randomRoute = math.random(100, 999)
 
@@ -25,9 +25,11 @@ lib.callback.register('kxm_utils:callback:createVehicle', function(source, data)
     end
 
     local netId = NetworkGetNetworkIdFromEntity(vehicle)
-    Entity(vehicle).state.plate = data.prop.plate
 
-    TriggerClientEvent('kxm_utils:client:setVehicleProperties', NetworkGetEntityOwner(vehicle), netId, data.prop, data.prop.plate)
+    if data.prop and data.prop.plate then
+        Entity(vehicle).state.plate = data.prop.plate
+        TriggerClientEvent('kxm_utils:client:setVehicleProperties', NetworkGetEntityOwner(vehicle), netId, data.prop, data.prop.plate)
+    end
 
     SetTimeout(1000, function()
         SetPlayerRoutingBucket(source, routing)
@@ -36,4 +38,6 @@ lib.callback.register('kxm_utils:callback:createVehicle', function(source, data)
     end)
 
     return netId
-end)
+end
+
+lib.callback.register('kxm_utils:callback:createVehicle', kxm.create_vehicle)
