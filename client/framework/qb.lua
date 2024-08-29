@@ -39,16 +39,6 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     logged_in = false
 end)
 
-AddEventHandler('onResourceStart', function()
-    if not LocalPlayer.state.isLoggedIn then return end
-
-    exports.spawnmanager:setAutoSpawn(false)
-    TriggerEvent('kxm_utils:client:playerLoaded')
-    TriggerServerEvent('kxm_utils:server:playerLoaded')
-
-    logged_in = true
-end)
-
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
     TriggerEvent('kxm_utils:client:jobUpdated')
 end)
