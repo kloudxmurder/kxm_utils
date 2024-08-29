@@ -25,9 +25,11 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     exports.spawnmanager:setAutoSpawn(false)
     TriggerEvent('kxm_utils:client:playerLoaded')
     TriggerServerEvent('kxm_utils:server:playerLoaded')
+
     if QB.Functions.GetPlayerData().job.onduty then
         TriggerServerEvent('QBCore:ToggleDuty')
     end
+
     logged_in = true
 end)
 
@@ -35,6 +37,16 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     TriggerEvent('kxm_utils:client:playerUnloaded')
     TriggerServerEvent('kxm_utils:server:playerUnloaded')
     logged_in = false
+end)
+
+AddEventHandler('onResourceStart', function()
+    if not LocalPlayer.state.isLoggedIn then return end
+
+    exports.spawnmanager:setAutoSpawn(false)
+    TriggerEvent('kxm_utils:client:playerLoaded')
+    TriggerServerEvent('kxm_utils:server:playerLoaded')
+
+    logged_in = true
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
