@@ -15,7 +15,7 @@
 ---@field upperbody? boolean
 ---@field prop? propData
 
-local prop
+local obj = nil
 
 ---@param data animData
 kxm.play_anim = function(data)
@@ -49,9 +49,9 @@ kxm.play_anim = function(data)
     if prop then
         if IsModelInCdimage(prop.model) then
             lib.requestModel(prop.model)
-            prop = CreateObject(prop.model, GetEntityCoords(entity), true, true, true)
+            obj = CreateObject(prop.model, GetEntityCoords(entity), true, true, true)
             repeat Wait(100) until DoesEntityExist(prop)
-            AttachEntityToEntity(prop, entity, GetPedBoneIndex(entity, prop.bone or 60309), prop.coords.x or 0.0, prop.coords.y or 0.0, prop.coords.z or 0.0, prop.rotation.x or 0.0, prop.rotation.y or 0.0, prop.rotation.z or 0.0, 1, 1, 0, 1, 0, 1)
+            AttachEntityToEntity(obj, entity, GetPedBoneIndex(entity, prop.bone or 60309), prop.coords.x or 0.0, prop.coords.y or 0.0, prop.coords.z or 0.0, prop.rotation.x or 0.0, prop.rotation.y or 0.0, prop.rotation.z or 0.0, 1, 1, 0, 1, 0, 1)
             SetModelAsNoLongerNeeded(prop.model)
         end
     end

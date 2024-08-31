@@ -15,7 +15,7 @@ end)
 
 RegisterServerEvent("kxm_utils:sound:PlayPos", function(name, vol, coords, loop)
     local src = source
-    exports.xsound:PlayUrlPos(src, name, "/html/sounds/" .. name .. ".mp3", vol, coords, loop)
+    exports.xsound:PlayUrlPos(-1, name, "/html/sounds/" .. name .. ".mp3", vol, coords, loop)
 end)
 
 RegisterServerEvent("kxm_utils:sound:Play", function(name, vol, loop)
