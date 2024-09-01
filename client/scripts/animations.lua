@@ -50,7 +50,7 @@ kxm.play_anim = function(data)
         if IsModelInCdimage(prop.model) then
             lib.requestModel(prop.model)
             obj = CreateObject(prop.model, GetEntityCoords(entity), true, true, true)
-            repeat Wait(100) until DoesEntityExist(prop)
+            repeat Wait(100) until DoesEntityExist(obj)
             AttachEntityToEntity(obj, entity, GetPedBoneIndex(entity, prop.bone or 60309), prop.coords.x or 0.0, prop.coords.y or 0.0, prop.coords.z or 0.0, prop.rotation.x or 0.0, prop.rotation.y or 0.0, prop.rotation.z or 0.0, 1, 1, 0, 1, 0, 1)
             SetModelAsNoLongerNeeded(prop.model)
         end
@@ -61,10 +61,10 @@ end
 
 kxm.stop_anim = function(entity)
     ClearPedTasks(entity)
-    if not prop then return end
+    if not obj then return end
 
-    kxm.delete_entity(prop)
-    prop = nil
+    kxm.delete_entity(obj)
+    obj = nil
 end
 
 kxm.emote = function(name)
